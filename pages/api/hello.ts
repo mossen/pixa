@@ -1,13 +1,20 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+import api from '@app/services/api'
 
-type Data = {
-  name: string
+type Response = {
+  token: string
 }
 
-export default function handler(
+export default async (
   req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
+  res: NextApiResponse<Response>
+): Promise<void> => {
+  const host = process.env.NEXT_KNACK_HOST
+  await api(`${host}/v1/objects/object_18/records`, 'POST', req.body)
+    .then(({ data }) => res.status(200).json(data))
+    .catch(({ response }) => {
+      return res
+        .status(response?.status || 400)
+        .json(response?.data || response.statusText)
+    })
 }
