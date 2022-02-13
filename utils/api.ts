@@ -3,8 +3,6 @@ import axios, { AxiosPromise, Method } from 'axios'
 type Headers = {
   headers: {
     Authorization?: string
-    'X-Knack-REST-API-Key': string
-    'X-Knack-Application-Id': string
     'Content-Type': 'application/json'
   }
 }
@@ -12,7 +10,7 @@ type Headers = {
 export const getDefaultHeaders = (): Headers => {
   const headers: Headers = {
     headers: {
-      'X-Knack-REST-API-Key': process.env.NEXT_KNACK_API_KEY || 'renderer',
+      Authorization: process.env.NEXT_API_KEY,
       'Content-Type': 'application/json',
     },
   }
@@ -32,10 +30,10 @@ export const getDefaultHeaders = (): Headers => {
 const api = (
   url: string,
   method: Method = 'GET',
-  data = null,
+  data: any = null,
   headers = getDefaultHeaders()
 ): AxiosPromise => {
-  // axios expects params for get parameters
+  // axios expects params for GET method
   let dataKey = 'data'
   if (method === 'GET') {
     dataKey = 'params'

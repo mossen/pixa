@@ -9,9 +9,6 @@ const Navbar: React.FC = () => {
           <Link href="/">
             <a className="mx-3 text-white">Home</a>
           </Link>
-          <Link href="/about">
-            <a className="mx-3 text-white">about</a>
-          </Link>
         </div>
         <Link href="https://github.com/mossen/github-repositories-search">
           <a className="mx-3 text-white">Github</a>
