@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Thumbnails: React.FC<Props> = (props) => {
-  if (!props.photos.length) {
+  if (!props?.photos?.length) {
     return null;
   }
 

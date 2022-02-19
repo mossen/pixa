@@ -41,7 +41,7 @@ const Pagination: React.FC = () => {
         showSizeChanger={false}
         onChange={handleOnChange}
         current={pageNumberRef.current}
-        total={state.data.total_results}
+        total={state.data?.total_results}
       />
     </div>
   );
