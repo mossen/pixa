@@ -6,10 +6,10 @@ import { API_CURATES, API_SEARCH, PER_PAGE } from '@utils/constants';
 
 const Pagination: React.FC = () => {
   const { state, dispatch } = useContext();
-  const pageNumberRef = React.useRef(1);
+  const [pageNumber, setPageNumber] = React.useState(1);
 
   const handleOnChange = (pageNumber: number): void => {
-    pageNumberRef.current = pageNumber;
+    setPageNumber(pageNumber);
     const apiConfig: { url: string; params: any } = {
       url: API_SEARCH,
       params: { query: state.keyword, page: pageNumber },
@@ -31,16 +31,16 @@ const Pagination: React.FC = () => {
   };
 
   React.useEffect(() => {
-    pageNumberRef.current = 1;
+    setPageNumber(1);
   }, [state.keyword])
 
   return (
     <div className="py-8">
       <AntPagination
         pageSize={PER_PAGE}
+        current={pageNumber}
         showSizeChanger={false}
         onChange={handleOnChange}
-        current={pageNumberRef.current}
         total={state.data?.total_results}
       />
     </div>
