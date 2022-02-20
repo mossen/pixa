@@ -3,7 +3,7 @@ import * as React from 'react';
 const useDebounce = <T>(
   value: T,
   callback: () => void,
-  delay: number = 550,
+  delay: number = 550
 ): T => {
   const [debouncedValue, setDebouncedValue] = React.useState<T>(value);
 
@@ -19,9 +19,7 @@ const useDebounce = <T>(
 
   React.useEffect(
     () => {
-      if (debouncedValue) {
-        callback();
-      }
+      callback();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [debouncedValue]
