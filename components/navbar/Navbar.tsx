@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 const Navbar: React.FC = () => {
   return (
-    <header className="bg-gray-900 sm:px-4 sm:py-3">
-      <nav className="flex justify-between px-2 pt-2 pb-4 sm:p-0">
+    <header className="bg-gray-900 sm:px-4 sm:py-3 flex justify-center">
+      <nav className="flex justify-between px-2 pt-2 pb-4 sm:p-0 container">
         <div className="flex">
           <Link href="/">
             <a className="mx-3 text-white">Home</a>
