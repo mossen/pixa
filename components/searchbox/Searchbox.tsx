@@ -1,44 +1,41 @@
 import api from '@utils/api';
 import * as React from 'react';
 import { Input } from '@vechaiui/react';
+import useDebounce from '@hooks/useDebounce';
 import { API_CURATES, API_SEARCH } from '@utils/constants';
 import { useContext, ACTIONS } from '@hooks/contextProvider';
 
 const Searchbox: React.FC = () => {
   const { dispatch } = useContext();
   const [keyword, setKeyword] = React.useState('');
+  const handler = () => {
+    const apiConfig: { url: string; params: any } = {
+      url: API_SEARCH,
+      params: { query: keyword },
+    };
 
-  React.useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      const apiConfig: { url: string; params: any } = {
-        url: API_SEARCH,
-        params: { query: keyword },
-      };
+    if (!keyword) {
+      apiConfig.url = API_CURATES;
+      apiConfig.params = null;
+      dispatch({
+        type: ACTIONS.UPDATE_KEYWORD,
+        payload: { keyword },
+      });
+    }
 
-      if (!keyword) {
-        apiConfig.url = API_CURATES;
-        apiConfig.params = null;
+    api(apiConfig.url, 'POST', apiConfig.params)
+      .then((res) => {
         dispatch({
-          type: ACTIONS.UPDATE_KEYWORD,
-          payload: { keyword },
+          type: ACTIONS.UPDATE_DATA,
+          payload: { data: res.data, keyword },
         });
-      }
-
-      api(apiConfig.url, 'POST', apiConfig.params)
-        .then((res) => {
-          dispatch({
-            type: ACTIONS.UPDATE_DATA,
-            payload: { data: res.data, keyword },
-          });
-        })
-        .catch((err) => {
-          // TODO:handle errors
-          console.error('🚀 ~ api ~ err', { ...err });
-        });
-    }, 150);
-
-    return () => clearTimeout(delayDebounceFn);
-  }, [keyword, dispatch]);
+      })
+      .catch((err) => {
+        // TODO:handle errors
+        console.error('🚀 ~ api ~ err', { ...err });
+      });
+  };
+  useDebounce<string>(keyword, handler);
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setKeyword(event.target.value);

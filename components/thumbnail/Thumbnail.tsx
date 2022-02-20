@@ -9,6 +9,7 @@ const Thumbnail: React.FC<Props> = (props) => {
   return (
     <div className="w-full justify-start p-1 md:p-2">
       <Image
+        placeholder='blur'
         width={props.photo.width}
         height={props.photo.height}
         src={props.photo.src.large2x}

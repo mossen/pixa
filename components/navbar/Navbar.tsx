@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
             <a className="mx-3 text-white">Home</a>
           </Link>
         </div>
-        <Link href="https://github.com/mossen/github-repositories-search">
+        <Link href="https://github.com/mossen">
           <a className="mx-3 text-white">Github</a>
         </Link>
       </nav>
