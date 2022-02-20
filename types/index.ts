@@ -3,9 +3,11 @@ export interface Photo {
   width: number;
   height: number;
   url: string;
+  alt: string;
+  avg_color: string;
   photographer: string;
   photographer_url: string;
-  photographer_id: string;
+  photographer_id: string | number;
   liked: boolean;
   src: {
     original: string;
